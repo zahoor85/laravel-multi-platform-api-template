@@ -59,7 +59,7 @@ class LoginController extends Controller
         $hashedToken = hash('sha256', $tokenValue);
 
         // Attempt to find and delete the token
-        $deleted = $request->user()->tokens()->where('token', $hashedToken)->deleted();
+        $deleted = $request->user()->tokens()->where('token', $hashedToken)->delete();
 
         return response()->noContent();
     }
