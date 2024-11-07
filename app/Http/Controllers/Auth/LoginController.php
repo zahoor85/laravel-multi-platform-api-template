@@ -46,7 +46,20 @@ class LoginController extends Controller
 
         // $request->session()->regenerateToken();
 
-        $request->user()->currentAccessToken->delete();
+        // $request->user()->currentAccessToken->delete();
+
+        // return response()->noContent();
+
+        // Laravel return ID|TOKEN
+        $plainToken = $request->bearerToken();
+        $tokenParts = explode('|', $plainToken);
+        $tokenValue = $tokenParts[1] ?? null;
+
+        // Hash the actual token value for database comparison
+        $hashedToken = hash('sha256', $tokenValue);
+
+        // Attempt to find and delete the token
+        $deleted = $request->user()->tokens()->where('token', $hashedToken)->deleted();
 
         return response()->noContent();
     }

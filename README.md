@@ -25,13 +25,11 @@ This is a Laravel 10 REST API boilerplate designed for both web and mobile appli
       composer install
       npm install
       cp .env.example  .env
-      
 
 2. **Environment Variables:**:
     Add your frontend URL in the .env file:
    ```bash
    FRONTEND_URL=http://your-frontend-domain.com
-
 
 3. **Headers Requirement**:
    For REST clients, it is **mandatory** to pass the following headers to properly interact with the API and avoid hitting the default web routes (`web.php`):
@@ -39,7 +37,6 @@ This is a Laravel 10 REST API boilerplate designed for both web and mobile appli
    Content-Type: application/json
    Accept: application/json
       
-
 
 This format includes the project logo, badges, a detailed description, and essential setup instructions. It also clearly lists the headers requirement for REST API clients. Let me know if there’s anything more you’d like to add!
 
