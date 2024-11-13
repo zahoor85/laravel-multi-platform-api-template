@@ -40,26 +40,16 @@ class LoginController extends Controller
      */
     public function destroy(Request $request): Response
     {
-        // Auth::guard('web')->logout();
-
-        // $request->session()->invalidate();
-
-        // $request->session()->regenerateToken();
-
-        // $request->user()->currentAccessToken->delete();
-
-        // return response()->noContent();
-
-        // Laravel return ID|TOKEN
-        $plainToken = $request->bearerToken();
-        $tokenParts = explode('|', $plainToken);
-        $tokenValue = $tokenParts[1] ?? null;
-
-        // Hash the actual token value for database comparison
-        $hashedToken = hash('sha256', $tokenValue);
-
-        // Attempt to find and delete the token
-        $deleted = $request->user()->tokens()->where('token', $hashedToken)->delete();
+         // Clear Session in-case exists
+         $request->session()->invalidate();
+         $request->session()->regenerateToken();
+ 
+         // Laravel return ID|TOKEN
+         $plainToken = $request->bearerToken();
+         $tokenParts = explode('|', $plainToken);
+         $tokenValue = $tokenParts[1] ?? null;
+         $hashedToken = hash('sha256', $tokenValue);
+         $request->user()->tokens()->where('token', $hashedToken)->delete();
 
         return response()->noContent();
     }
